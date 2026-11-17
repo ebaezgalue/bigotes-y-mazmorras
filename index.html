@@ -147,6 +147,7 @@ small{opacity:.75}
   <div id="sumline" class="sumline"></div>
   <button class="btn big" id="go">▶ Jugar</button>
   <button class="btn sec" id="quick">⚡ Jugar ya con la última elección</button>
+  <button class="btn sec" id="rnd">🎲 Partida rápida (al azar)</button>
   <div class="tiles">
    <button class="tile" data-go="tal"><span>🦴</span>Talentos<small id="bones2"></small></button>
    <button class="tile" data-go="books"><span>📖</span>Libros<small>legendarios y bestiarios</small></button>
@@ -1230,6 +1231,7 @@ function goScr(n,silent){scr=n;document.querySelectorAll('#menu .scr').forEach(e
 document.querySelectorAll('#menu [data-go]').forEach(b=>b.onclick=()=>goScr(b.dataset.go));
 document.querySelectorAll('#menu .back').forEach(b=>b.onclick=()=>goScr(b.dataset.to,true));
 $('go').onclick=()=>goScr('cat');$('quick').onclick=()=>newGame();
+$('rnd').onclick=()=>{const pk=a=>a[Math.floor(Math.random()*a.length)];checkUnlocks();const cs=Object.keys(CATS).filter(k=>k==='michi'||(save.unl||{})[k]);save.cat=pk(cs);save.map=pk(Object.keys(MAPS));save.startW=pk(START_W);persist();newGame();const c=CATS[save.cat];banner('🎲 '+c.ic+' '+c.n+' · '+MAPS[save.map].ic+' '+MAPS[save.map].n+' · '+WD[save.startW].ic,'#ffd34d');};
 addEventListener('popstate',()=>{if(state==='menu'&&scr!=='main')goScr(BACKS[scr]||'main',true);});
 function toMenu(){state='menu';G=null;$('hud').style.display='none';renderMenu();goScr('main',true);showOv('menu');}
 $('play').onclick=()=>newGame();$('again').onclick=newGame;$('tomenu').onclick=toMenu;$('resume').onclick=togglePause;$('pz').onclick=togglePause;
