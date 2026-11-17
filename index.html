@@ -148,6 +148,14 @@ small{opacity:.75}
   🎀 <b>Mamá rata</b> · 1:19 · al morir suelta 4 bebés<br>💣 <b>Rata kamikaze</b> · 1:34 · explota cerca de ti<br>🥷 <b>Ratón ninja</b> · 1:49 · se teletransporta a tu lado<br>
   🤢 <b>Rata de Cloaca Gigante</b> · 2:30 · minijefe que pare bebés<br>🌿 <b>Chamán</b> · 2:05 · cura a sus aliados, ¡mátalo primero!<br>
   🛡️ <b>Acorazado</b> · 2:45 · recibe la mitad de daño<br>🕹️ <b>Portal de 8 bits</b> · 1:15 y cada 2 min · camina hacia él para <b>entrar</b>: limpia la pantalla y empieza una zona de 20 s con premio<br>&nbsp;&nbsp;&nbsp;🦇 <b>Murciélago ladrón</b> · roba botín o experiencia y huye. ¡Atrápalo!<br>&nbsp;&nbsp;&nbsp;🐉 <b>Dragón de 8 bits</b> · desde el 2.º portal, persigue y embiste<br>🔘 <b>???</b> · algo pequeño se esconde en la oscuridad…<br>👑 <b>Rey Ratón</b> · 5:00</div></details>
+  <details class="panel" id="svp"><summary>💾 Sincronizar entre dispositivos</summary><div style="margin-top:8px;font-size:13px;line-height:1.5">
+   <b>1.</b> En el dispositivo que tiene tu progreso, toca <b>Copiar código</b>.<br><b>2.</b> En el otro, pégalo en el segundo cuadro y toca <b>Importar</b>.<br>
+   <span style="opacity:.75">Se traen huesos, talentos, equipo, gato y mapa. Récords, legendarios y desbloqueos se combinan con los que ya tengas.</span>
+   <textarea id="svOut" readonly rows="3" style="width:100%;margin-top:8px;background:#1a1424;color:#cfc3e8;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
+   <button class="btn sec" id="svCopy">📤 Copiar código</button> <button class="btn sec" id="svFile">💾 Guardar archivo</button>
+   <textarea id="svIn" rows="3" placeholder="Pega aquí el código del otro dispositivo (empieza con BYM)" style="width:100%;margin-top:8px;background:#1a1424;color:#fff;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
+   <button class="btn sec" id="svImp">📥 Importar código</button> <label class="btn sec" style="display:inline-block">📂 Abrir archivo<input type="file" id="svFileIn" accept=".txt,.bym,text/plain" style="display:none"></label>
+   <div id="svMsg" style="margin-top:6px;min-height:18px;font-weight:700"></div></div></details>
   <details class="panel"><summary>🍳 Bestiario de la Cocina</summary><div style="font-size:13px;line-height:1.7;margin-top:8px">
   🪳 <b>Cucaracha</b> · desde el inicio · enjambres veloces<br>🧀 <b>Ratón quesero</b> · 0:35 · rápido, da más experiencia<br>🧑‍🍳 <b>Ratón cocinero</b> · 1:00 · lanza cucharas de lejos<br>
   🍳 <b>Ratón de la sartén</b> · 2:30 · recibe la mitad de daño<br>🧀 <b>Ratón Quesero Gigante</b> · 2:30 · minijefe que pare bebés<br>👨‍🍳 <b>Chef Ratatouille</b> · 5:00 · lanza platos, embiste y llama a su brigada<br>
@@ -217,11 +225,11 @@ let floorPat=null;
 
 // ---------- datos
 const RAR=[{n:'Común',c:'#cfcfcf',m:1,w:62},{n:'Raro',c:'#4da3ff',m:1.6,w:27},{n:'Épico',c:'#b45cff',m:2.4,w:9},{n:'Legendario',c:'#ff9a1f',m:3.5,w:2}];
-const SLOTS={collar:'Collar',garras:'Garras',capa:'Capa',botas:'Botas',sombrero:'Sombrero',amuleto:'Amuleto'};
+const SLOTS={collar:'Collar',garras:'Garras',capa:'Capa',botas:'Botas',sombrero:'Sombrero',amuleto:'Amuleto',reliquia:'Reliquia'};
 const STATDEF={dmg:{n:'Daño',b:6,u:'%'},spd:{n:'Velocidad',b:4,u:'%'},hp:{n:'Vida',b:10,u:''},cdr:{n:'Enfriamiento',b:4,u:'%'},crit:{n:'Crítico',b:3,u:'%'},mag:{n:'Imán',b:15,u:''}};
-const NAMES={collar:['Collar','Cascabel','Gargantilla'],garras:['Garras','Zarpas','Uñas'],capa:['Capa','Manto','Capucha'],botas:['Botas','Botitas','Escarpines'],sombrero:['Sombrero','Gorro','Capirote'],amuleto:['Amuleto','Medallón','Talismán']};
+const NAMES={collar:['Collar','Cascabel','Gargantilla'],garras:['Garras','Zarpas','Uñas'],capa:['Capa','Manto','Capucha'],botas:['Botas','Botitas','Escarpines'],sombrero:['Sombrero','Gorro','Capirote'],amuleto:['Amuleto','Medallón','Talismán'],reliquia:['Reliquia','Cáliz','Trofeo']};
 const SUF=[['de Cartón','del Callejón','de Lana'],['del Cazador','de Plata','del Tejado'],['de la Luna','del Abismo','de Sombras'],['del Rey Gato','de las Siete Vidas','de Bastet']];
-const WD={garra:{n:'Garrazo',d:'Zarpazo en arco al enemigo más cercano',ic:'🐾'},ovillo:{n:'Ovillo de estambre',d:'Lanza ovillos que atraviesan enemigos',ic:'🧶'},ronroneo:{n:'Ronroneo',d:'Aura que daña a los enemigos cercanos',ic:'💫'},sardinas:{n:'Sardinas orbitantes',d:'Peces que giran a tu alrededor',ic:'🐟'},mecanica:{n:'Garra mecánica',d:'Atrapa grupos de ratones y los lanza lejos',ic:'🦾'}};
+const WD={garra:{n:'Garrazo',d:'Zarpazo en arco al enemigo más cercano',ic:'🐾'},ovillo:{n:'Ovillo de estambre',d:'Lanza ovillos que atraviesan enemigos',ic:'🧶'},ronroneo:{n:'Ronroneo',d:'Aura que daña a los enemigos cercanos',ic:'💫'},sardinas:{n:'Sardinas orbitantes',d:'Peces que giran a tu alrededor',ic:'🐟'},espada:{n:'Espada cuadrada',d:'Estocada larga que atraviesa; x3 contra dragones y jefes',ic:'🗡️'},mecanica:{n:'Garra mecánica',d:'Atrapa grupos de ratones y los lanza lejos',ic:'🦾'}};
 const MAPS={
   mazmorra:{n:'Mazmorra',ic:'🏰',d:'Piedra, antorchas y el Rey Ratón',boss:'rey',bossN:'👑 Rey Ratón',bossIn:'👑 ¡El Rey Ratón ha llegado!',bossD:'¡Derrotaste al Rey Ratón! 🏆',mini:'cloaca',miniN:'🤢 Rata de Cloaca Gigante'},
   cocina:{n:'Cocina gigante',ic:'🍳',d:'Baldosas, ollas humeantes y el Chef Ratatouille',boss:'chef',bossN:'👨‍🍳 Chef Ratatouille',bossIn:'👨‍🍳 ¡El Chef Ratatouille entra en la cocina!',bossD:'¡Derrotaste al Chef Ratatouille! 🏆',mini:'queso',miniN:'🧀 Ratón Quesero Gigante'}};
@@ -233,7 +241,7 @@ const CATS={
  siames:{n:'Siamés',ic:'🩵',d:'+22% velocidad, -12% enfriamiento, -25 vida',mods:{spd:0.22,cdr:0.12,hp:-25},req:'Derrota 600 ratones en total',goal:()=>[Math.min(600,save.totKills||0),600],pal:{o:'#4a3424',a:'#f1dfc0',b:'#efd9b4',c:'#fff6e6',e:'#4aa8ff',t:'#4a2e1e',n:'#f1dfc0'},pt:'#5a3a28'},
  negro:{n:'Gato negro',ic:'🖤',d:'+60% botín, +20% experiencia',mods:{luck:0.6,xp:0.2},req:'Supera la Zona 8 bits',goal:()=>[save.zoneWin?1:0,1],pal:{o:'#8a7ab0',a:'#2a2630',b:'#1e1b24',c:'#3d3846',e:'#ffd84a',t:'#2a2630',n:'#2a2630',k:'#0a0a0a'}}};
 const curCat=()=>CATS[save.cat]&&(save.cat==='michi'||(save.unl||{})[save.cat])?save.cat:'michi';
-const EVO={garra:{p:'dmg',ic:'🐯',n:'Zarpa del Tigre',d:'Zarpazo en círculo completo, casi doble daño'},ovillo:{p:'cdr',ic:'🕸️',n:'Telaraña de estambre',d:'8 ovillos en todas direcciones que lo atraviesan todo'},ronroneo:{p:'hp',ic:'😇',n:'Ronroneo sagrado',d:'Aura enorme que además te cura'},sardinas:{p:'spd',ic:'🦈',n:'Tiburones orbitales',d:'Dos anillos de tiburones girando'},mecanica:{p:'mag',ic:'🏗️',n:'Grúa dorada',d:'Más garras doradas que atrapan el doble'}};
+const EVO={garra:{p:'dmg',ic:'🐯',n:'Zarpa del Tigre',d:'Zarpazo en círculo completo, casi doble daño'},ovillo:{p:'cdr',ic:'🕸️',n:'Telaraña de estambre',d:'8 ovillos en todas direcciones que lo atraviesan todo'},ronroneo:{p:'hp',ic:'😇',n:'Ronroneo sagrado',d:'Aura enorme que además te cura'},sardinas:{p:'spd',ic:'🦈',n:'Tiburones orbitales',d:'Dos anillos de tiburones girando'},espada:{p:'mag',ic:'⚔️',n:'Espada Excálibur',d:'Estocada dorada doble, adelante y atrás, con más alcance'},mecanica:{p:'mag',ic:'🏗️',n:'Grúa dorada',d:'Más garras doradas que atrapan el doble'}};
 const PASS=[{id:'dmg',ic:'⚔️',n:'Fuerza felina',d:'+10% daño'},{id:'spd',ic:'💨',n:'Patitas veloces',d:'+8% velocidad'},{id:'hp',ic:'❤️',n:'Siete vidas',d:'+20 vida máx. y cura 30'},{id:'mag',ic:'🧲',n:'Bigotes imantados',d:'+25% radio de imán'},{id:'cdr',ic:'⏱️',n:'Reflejos de gato',d:'-6% enfriamiento'}];
 const ET={
   rata:{hp:16,spd:72,dmg:8,r:13,xp:1,col:'#8b8494',loot:0.008},
@@ -553,6 +561,8 @@ const LEG={
   sombras:{slot:'capa',n:'Manto de Sombras',ic:'🌑',d:'15 % de esquivar cualquier golpe',st:[['spd',6],['crit',5]]},
   botas:{slot:'botas',n:'Botas de Siete Leguas',ic:'👢',d:'+15 % de velocidad y el doble de invulnerabilidad tras un golpe',st:[['spd',8],['hp',15]]},
   sombrero:{slot:'sombrero',n:'Sombrero de Copa Mágico',ic:'🎩',d:'+30 % de experiencia',st:[['cdr',6],['mag',20]]},
+  iman:{slot:'amuleto',n:'Imán de Aventura',ic:'🧲',d:'Cada 8 s atrae a los ratones, el botín y las gemas hacia ti',st:[['mag',30],['spd',4]]},
+  copa:{slot:'reliquia',n:'Copa Dorada',ic:'🏆',d:'Cada 90 s te cura 40 % y tus golpes pegan +50 % durante 10 s',st:[['hp',30],['dmg',10]]},
   amuleto:{slot:'amuleto',n:'Amuleto del Pez Dorado',ic:'🐠',d:'+60 % de suerte: más botín y más cofres buenos',st:[['dmg',8],['hp',20]]}};
 const CHEST=[{n:'Cofre de madera',c:'#c58a4a',w:[0,62,30,8]},{n:'Cofre dorado',c:'#ffd34d',w:[0,0,68,32]}];
 function genLeg(){const ids=Object.keys(LEG),seen=save.legs||[],fresh=ids.filter(k=>!seen.includes(k));const id=(fresh.length&&Math.random()<0.7)?pick(fresh):pick(ids),L=LEG[id];
@@ -587,6 +597,12 @@ function updChests(dt){const p=G.p;
     else if(c.st===1){c.ot+=dt;if(c.ot>=0.9){c.st=2;c.ot=0;revealChest(c);}}
     else{c.ot+=dt;if(c.ot>3)c.gone=true;}}
   G.chests=G.chests.filter(c=>!c.gone);}
+function updLeg2(dt){const L=G.S.leg||{},p=G.p;
+  if(L.iman){G.liman=(G.liman||0)+dt;if(G.liman>=8){G.liman=0;G.pullT=1.4;G.fx.push({k:'ring',x:p.x,y:p.y,t:0,d:0.7,R:420,c:'#ff6a8a'});SND.tinkle();for(const g of G.gems)g.mag=true;}}
+  if(G.pullT>0){G.pullT-=dt;for(const e of G.en){if(e.dead||e.big||e.type.dragon||e.type.thief||e.grab)continue;const dx=p.x-e.x,dy=p.y-e.y,d=Math.hypot(dx,dy)||1;if(d<460&&d>46){e.x+=dx/d*340*dt;e.y+=dy/d*340*dt;}}
+    for(const l of G.loot){const dx=p.x-l.x,dy=p.y-l.y,d=Math.hypot(dx,dy)||1;if(d>20&&l.t>=0){l.x+=dx/d*420*dt;l.y+=dy/d*420*dt;}}}
+  if(L.copa){G.lcopa=(G.lcopa===undefined?45:G.lcopa)+dt;if(G.lcopa>=90){G.lcopa=0;p.hp=Math.min(G.S.maxhp,p.hp+G.S.maxhp*0.4);G.goldT=10;G.fx.push({k:'ring',x:p.x,y:p.y,t:0,d:0.9,R:200,c:'#ffd34d'});banner('🏆 ¡Copa Dorada! Curación y golpes dorados','#ffd34d');SND.fanfare(2);}}
+  if(G.goldT>0)G.goldT-=dt;}
 function updLeg(dt){const L=G.S.leg;if(!L)return;const p=G.p;
   if(L.cascabel){G.lcas=(G.lcas||0)+dt;if(G.lcas>=7){G.lcas=0;SND.tinkle();G.fx.push({k:'ring',x:p.x,y:p.y,t:0,d:0.55,R:170,c:'#ffd34d'});
     for(const e of G.en.slice()){if(e.dead)continue;if((e.x-p.x)**2+(e.y-p.y)**2<170*170){e.stun=Math.max(e.stun||0,1);hit(e,14,0,0,0,true);}}}}
@@ -596,7 +612,7 @@ const itemHTML=it=>`<b style="color:${RAR[it.r].c}">${it.leg&&LEG[it.leg]?LEG[it
 // ---------- combate
 function part(x,y,col,spd,life,s){const a=Math.random()*6.283,v=rnd(0.3,1)*spd;return {x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life,max:life,col,s};}
 function nearest(maxD){let best=null,bd=maxD*maxD;const p=G.p;for(const e of G.en){if(e.dead)continue;const d=(e.x-p.x)**2+(e.y-p.y)**2;if(d<bd){bd=d;best=e;}}return best;}
-function hit(e,base,nx,ny,kb,small){if(e.dead)return;const S=G.S;const crit=Math.random()<S.crit;const d=Math.max(1,Math.round(base*S.dmg*(crit?2:1)*(1-(e.type.armor||0))*(e.stun>0?1.5:1)));
+function hit(e,base,nx,ny,kb,small){if(e.dead)return;const S=G.S;const crit=Math.random()<S.crit;const d=Math.max(1,Math.round(base*S.dmg*(crit?2:1)*(G.goldT>0?1.5:1)*(1-(e.type.armor||0))*(e.stun>0?1.5:1)));
   e.hp-=d;e.flash=0.08;if(crit&&!small&&G.S.leg&&G.S.leg.bastet)G.p.hp=Math.min(G.S.maxhp,G.p.hp+1);if(!small)SND.hit(crit);if(kb&&!e.big){const f=e.type.armor?0.4:e.type.dragon?0.15:1;e.kx+=nx*kb*f;e.ky+=ny*kb*f;}
   if(G.txt.length<120)G.txt.push({x:e.x+rnd(-6,6),y:e.y-e.r,v:d,crit,t:0,small:!!small,armor:!!e.type.armor});
   if(!small&&G.parts.length<500)for(let i=0;i<3;i++)G.parts.push(part(e.x,e.y,'#fff',110,0.2,2));
@@ -645,6 +661,10 @@ function updWeapons(dt){const p=G.p,S=G.S,cd=1-S.cdr;
         if(!best)break;used.push(best);G.claws.push({tx:best.x,ty:best.y,t:0,ph:'out',gr:[],L,R,max:(4+L*2)*(ev?2:1),dmg:(22+L*10)*(ev?1.4:1),gold:ev,a:Math.atan2(best.y-p.y,best.x-p.x)});}
       G.wcd[k]=(3.6-L*0.25)*cd*(ev?0.6:1);}
     else if(k==='ronroneo'){const ev=G.evo.ronroneo,R=(70+L*14)*(ev?1.45:1);let hc=0;for(const en of G.en){if(!en.dead&&(en.x-p.x)**2+(en.y-p.y)**2<(R+en.r)**2){hit(en,(4+L*2.5)*(ev?1.5:1),0,0,0,true);hc++;}}if(ev&&hc)G.p.hp=Math.min(G.S.maxhp,G.p.hp+Math.min(3,0.4*hc));G.wcd[k]=0.45*cd;}
+    else if(k==='espada'){const ev=G.evo.espada,e=nearest(330);const ang=e?Math.atan2(e.y-p.y,e.x-p.x):Math.atan2(p.diry,p.dirx);const len=(120+L*14)*(ev?1.5:1),wid=24+(ev?10:0);SND.slash();
+      for(const a of (ev?[ang,ang+Math.PI]:[ang])){G.fx.push({k:'stab',x:p.x,y:p.y,a,len,t:0,d:0.22,ev});const ca=Math.cos(a),sa=Math.sin(a);
+        for(const en of G.en){if(en.dead)continue;const dx=en.x-p.x,dy=en.y-p.y,al=dx*ca+dy*sa,pe=Math.abs(-dx*sa+dy*ca);if(al>-en.r&&al<len+en.r&&pe<wid/2+en.r){const big=en.boss||en.type.dragon||en.type.miniboss;hit(en,(16+L*7)*(ev?1.5:1)*(big?3:1),ca,sa,120);}}}
+      G.wcd[k]=1.0*cd*(ev?0.85:1);}
     else G.wcd[k]=1;}
   if(G.w.sardinas){const L=G.w.sardinas,ev=G.evo.sardinas;G.orbA+=dt*(3.0+L*0.25);const n=L+2;
     for(const [R,dir] of orbRings())for(let i=0;i<n;i++){const a=dir*G.orbA+i*6.283/n,ox=p.x+Math.cos(a)*R,oy=p.y+Math.sin(a)*R;
@@ -747,7 +767,7 @@ function update(dt){G.t+=dt;if(G.t>(save.best||0)){save.best=G.t;}if(G.inf){save
   if(!G.dot.got&&!G.dot.eaten&&Math.hypot(p.x-G.dot.px,p.y-G.dot.py)<p.r+8){G.dot.got=true;showSecret();return;}
   if(!G.zone)for(const o of G.portals){if(o.t>0.6&&Math.hypot(p.x-o.x,p.y-o.y)<40){enterPortal(o);break;}}
   if(G.zone)updZone(dt);
-  updChests(dt);updLeg(dt);spawning(dt);updWeapons(dt);updEnemies(dt);separate();updProjectiles(dt);updPickups(dt);updFx(dt);
+  updChests(dt);updLeg(dt);updLeg2(dt);spawning(dt);updWeapons(dt);updEnemies(dt);separate();updProjectiles(dt);updPickups(dt);updFx(dt);
   G.en=G.en.filter(e=>!e.dead);
   if(G.pendingLv>0&&state==='play')openLevelUp();}
 
@@ -828,7 +848,8 @@ function drawCat(){const p=G.p,r=p.r;shadowAt(p.x,p.y+r*0.9,r,r*0.38);
   PXA.draw(c,p.x,p.y+r*0.95+bob,r*3.1/16,p.face);
   const hat=save.equip.sombrero,boots=save.equip.botas;
   if(hat){const hc=RAR[hat.r].c,hx=p.x+p.face*r*0.12,hy=p.y+r*0.95+bob-r*2.2;cx.fillStyle='#14101a';cx.fillRect(hx-r*0.7,hy+r*0.18,r*1.4,r*0.22);cx.fillStyle=hc;cx.fillRect(hx-r*0.42,hy-r*0.42,r*0.84,r*0.62);cx.fillStyle='#14101a';cx.fillRect(hx-r*0.42,hy+r*0.02,r*0.84,r*0.16);}
-  if(boots){const bc=RAR[boots.r].c,by=p.y+r*0.95+bob;cx.fillStyle=bc;cx.fillRect(p.x-r*0.78,by-r*0.2,r*0.5,r*0.26);cx.fillRect(p.x+r*0.28,by-r*0.2,r*0.5,r*0.26);}}
+  if(boots){const bc=RAR[boots.r].c,by=p.y+r*0.95+bob;cx.fillStyle=bc;cx.fillRect(p.x-r*0.78,by-r*0.2,r*0.5,r*0.26);cx.fillRect(p.x+r*0.28,by-r*0.2,r*0.5,r*0.26);}
+  if(G.goldT>0){cx.strokeStyle='rgba(255,211,77,'+(0.45+0.3*Math.sin(G.t*10))+')';cx.lineWidth=3;cx.beginPath();cx.ellipse(p.x,p.y+r*0.2,r*1.4,r*1.9,0,0,7);cx.stroke();}}
 function drawChest(c){const col=CHEST[c.tier].c,x=c.x,y=c.y,gold=c.tier===1;shadowAt(x,y+13,18,6);
   cx.save();cx.translate(x+(c.st===1?Math.sin(c.ot*70)*1.6:0),y);
   if(c.st===2&&c.ot>2)cx.globalAlpha=Math.max(0,3-c.ot);
@@ -944,6 +965,10 @@ function render(){
   // efectos
   for(const f of G.fx){const k=f.t/f.d;if(f.k==='slash'){cx.strokeStyle=f.ev?`rgba(255,200,60,${1-k})`:`rgba(255,240,210,${1-k})`;cx.lineWidth=10*(1-k)+2;cx.lineCap='round';cx.beginPath();cx.arc(f.x,f.y,f.R*(0.7+k*0.3),f.a-f.arc/2,f.a+f.arc/2);cx.stroke();cx.strokeStyle=`rgba(255,180,90,${0.6*(1-k)})`;cx.lineWidth=3;cx.beginPath();cx.arc(f.x,f.y,f.R*(0.55+k*0.3),f.a-f.arc/2.4,f.a+f.arc/2.4);cx.stroke();}
     else if(f.k==='ring'){cx.strokeStyle=f.c||'#ffd34d';cx.globalAlpha=Math.max(0,1-k);cx.lineWidth=6*(1-k)+1;cx.beginPath();cx.arc(f.x,f.y,f.R*(0.2+k*0.8),0,7);cx.stroke();cx.globalAlpha=1;}
+    else if(f.k==='stab'){const ext=Math.min(1,k*3.2),L2=f.len*ext;cx.save();cx.translate(f.x,f.y);cx.rotate(f.a);cx.globalAlpha=1-Math.max(0,(k-0.5)*2);
+      cx.fillStyle=f.ev?'#ffd34d':'#e8eef8';cx.fillRect(14,-3,Math.max(0,L2-14),6);cx.fillStyle=f.ev?'#fff3a0':'#ffffff';cx.fillRect(14,-1,Math.max(0,L2-14),2);
+      cx.fillStyle=f.ev?'#fff3a0':'#c8d0e0';cx.beginPath();cx.moveTo(L2,0);cx.lineTo(L2-12,-5);cx.lineTo(L2-12,5);cx.closePath();cx.fill();
+      cx.fillStyle='#8a5a2a';cx.fillRect(8,-9,6,18);cx.fillStyle='#ffd34d';cx.fillRect(2,-2,8,4);cx.restore();}
     else if(f.k==='heal'){cx.strokeStyle=`rgba(140,255,110,${0.8*(1-k)})`;cx.lineWidth=3;cx.beginPath();cx.arc(f.x,f.y,f.R*(0.3+k*0.7),0,7);cx.stroke();}
     else if(f.k==='boom'){cx.fillStyle=`rgba(255,150,40,${0.5*(1-k)})`;cx.beginPath();cx.arc(f.x,f.y,f.R*(0.4+k*0.6),0,7);cx.fill();cx.strokeStyle=`rgba(255,230,150,${1-k})`;cx.lineWidth=4;cx.stroke();}}
   for(const q of G.parts){cx.globalAlpha=Math.max(0,q.life/q.max);cx.fillStyle=q.col;cx.fillRect(q.x-q.s/2,q.y-q.s/2,q.s,q.s);}cx.globalAlpha=1;
@@ -1048,6 +1073,45 @@ function renderMenu(){renderMaps();renderLegBook();renderCats();renderStartW();r
   $('tal').innerHTML=T.map(([k,n,d])=>{const l=save.talents[k],c=(l+1)*15;return `<div class="tal"><div><b>${n}</b> <span class="lv">${l}/5</span><br><small>${d} por nivel</small></div><button data-k="${k}" ${l>=5||save.bones<c?'disabled':''}>${l>=5?'MÁX':c+' 🦴'}</button></div>`;}).join('');
   $('tal').querySelectorAll('button').forEach(b=>b.onclick=()=>{const k=b.dataset.k,c=(save.talents[k]+1)*15;if(save.bones>=c&&save.talents[k]<5){save.bones-=c;save.talents[k]++;persist();renderMenu();}});
   $('eq').innerHTML=Object.keys(SLOTS).map(s=>{const it=save.equip[s];return `<div class="eqi"><small>${SLOTS[s]}</small><br>${it?itemHTML(it):'<i style="opacity:.5">vacío</i>'}</div>`;}).join('');}
+
+// ---------- respaldo / sincronización (código copiable o archivo)
+const LOCALK=['snd','mus','shake','mvol','mmode'];
+function fnv(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16).padStart(8,'0');}
+function b64u(buf){let s='';const a=new Uint8Array(buf);for(let i=0;i<a.length;i+=0x8000)s+=String.fromCharCode.apply(null,a.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function unb64u(t){t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a;}
+async function exportCode(){const body=JSON.stringify(save),raw=new TextEncoder().encode(JSON.stringify({v:1,h:fnv(body),d:body}));
+  if(typeof CompressionStream!=='undefined'){try{const cs=new CompressionStream('deflate-raw'),w=cs.writable.getWriter();w.write(raw).catch(()=>{});w.close().catch(()=>{});return 'BYM2.'+b64u(await new Response(cs.readable).arrayBuffer());}catch(e){}}
+  return 'BYM1.'+b64u(raw);}
+async function parseCode(code){code=(code||'').trim().replace(/\s+/g,'');const m=/^BYM([12])\.([A-Za-z0-9_-]+)$/.exec(code);if(!m)throw new Error('formato');
+  let bytes=unb64u(m[2]);
+  if(m[1]==='2'){if(typeof DecompressionStream==='undefined')throw new Error('navegador');const ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(bytes).catch(()=>{});w.close().catch(()=>{});bytes=new Uint8Array(await new Response(ds.readable).arrayBuffer());}
+  const o=JSON.parse(new TextDecoder().decode(bytes));if(!o||o.v!==1||typeof o.d!=='string'||fnv(o.d)!==o.h)throw new Error('corrupto');
+  const d=JSON.parse(o.d);if(!d||typeof d!=='object'||typeof d.bones!=='number')throw new Error('datos');return d;}
+function mergeSave(inc){const loc=save,out=JSON.parse(JSON.stringify(inc));
+  for(const k of LOCALK)if(k in loc)out[k]=loc[k];
+  out.best=Math.max(inc.best||0,loc.best||0);out.totKills=Math.max(inc.totKills||0,loc.totKills||0);
+  out.inf=Object.assign({},loc.inf||{},inc.inf||{});for(const m in out.inf)out.inf[m]=Math.max((loc.inf||{})[m]||0,(inc.inf||{})[m]||0);
+  out.legs=[...new Set([...(loc.legs||[]),...(inc.legs||[])])];out.evos=[...new Set([...(loc.evos||[]),...(inc.evos||[])])];
+  out.unl=Object.assign({},loc.unl||{},inc.unl||{});out.bossWin=Object.assign({},loc.bossWin||{},inc.bossWin||{});
+  out.zoneWin=!!(loc.zoneWin||inc.zoneWin);out.dot=!!(loc.dot||inc.dot);
+  out.talents=Object.assign({dmg:0,hp:0,mag:0},out.talents||{});out.equip=out.equip||{};return out;}
+let svBusy=false;
+async function svRefresh(){const el=$('svOut');if(!el)return;try{el.value=await exportCode();}catch(e){el.value='';}}
+function svMsg(t,ok){const m=$('svMsg');if(!m)return;m.textContent=t;m.style.color=ok===false?'#ff7a7a':'#7dffa0';}
+async function svImport(code){try{const inc=await parseCode(code);save=Object.assign({bones:0,talents:{dmg:0,hp:0,mag:0},equip:{},shake:1,snd:true,mus:true,mmode:'dj'},mergeSave(inc));persist();checkUnlocks();renderMenu();svMsg('✅ Progreso importado: '+save.bones+' 🦴 · '+Object.values(save.equip).filter(Boolean).length+' objetos equipados · '+(save.legs||[]).length+' legendarios',true);$('svIn').value='';}
+  catch(e){svMsg('❌ El código no es válido o está incompleto. Cópialo de nuevo completo.',false);}}
+(function svInit(){const cp=$('svCopy');if(!cp)return;
+  $('svp').addEventListener('toggle',()=>{if($('svp').open)svRefresh();});
+  cp.onclick=()=>{const el=$('svOut');if(!el.value){svMsg('Espera un momento y vuelve a tocar',false);svRefresh();return;}el.focus();el.select();el.setSelectionRange(0,el.value.length);
+    let ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    if(ok)svMsg('✅ Código copiado ('+el.value.length+' caracteres). Pégalo en el otro dispositivo.',true);
+    else if(navigator.clipboard)navigator.clipboard.writeText(el.value).then(()=>svMsg('✅ Código copiado. Pégalo en el otro dispositivo.',true)).catch(()=>svMsg('Mantén pulsado el cuadro, elige Copiar todo',false));
+    else svMsg('Mantén pulsado el cuadro, elige Copiar todo',false);};
+  $('svFile').onclick=async()=>{try{const code=await exportCode(),b=new Blob([code],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='bigotes-progreso.bym.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);svMsg('💾 Archivo guardado (revisa Descargas)',true);}catch(e){svMsg('No pude guardar el archivo; usa Copiar código',false);}};
+  let arm=false;$('svImp').onclick=()=>{const v=$('svIn').value.trim();if(!v){svMsg('Pega primero el código en el cuadro',false);return;}
+    if(!arm){arm=true;$('svImp').textContent='¿Seguro? Toca otra vez';setTimeout(()=>{arm=false;$('svImp').textContent='📥 Importar código';},3500);return;}
+    arm=false;$('svImp').textContent='📥 Importar código';svImport(v);};
+  $('svFileIn').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('svIn').value=String(r.result||'').trim();svMsg('Archivo cargado: toca Importar código',true);};r.readAsText(f);e.target.value='';};})();
 function toMenu(){state='menu';G=null;$('hud').style.display='none';renderMenu();showOv('menu');}
 $('play').onclick=newGame;$('again').onclick=newGame;$('tomenu').onclick=toMenu;$('resume').onclick=togglePause;$('pz').onclick=togglePause;
 $('quit').onclick=()=>{state='play';gameOver();};
@@ -1075,7 +1139,7 @@ function loop(now){const dt=Math.min(0.033,(now-last)/1000);last=now;
 requestAnimationFrame(loop);
 </script>
 <script>
-if('serviceWorker' in navigator&&location.protocol.startsWith('http')){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!window._rl&&typeof state!=='undefined'&&state==='menu'){window._rl=1;location.reload();}});window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
 </script>
 </body>
 </html>
