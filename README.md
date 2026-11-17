@@ -2,9 +2,9 @@
 
 Un survivors-like gatuno: sobrevive a oleadas de ratones, consigue botín estilo Diablo y vence al jefe… ¡y sigue en modo infinito!
 
-- 🏰 Mazmorra (Rey Ratón), 🍳 Cocina gigante (Chef Ratatouille), 🐊 Alcantarillas (Rey de las Cloacas), 🏯 Palacio Imperial (Emperador Ratón), 🌲 Bosque encantado (Druida del Bosque) y 🗝️ Castillo de Aventura (3 dragones, 3 llaves y la Copa Dorada)
+- 🏰 Mazmorra (Rey Ratón), 🍳 Cocina gigante (Chef Ratatouille), 🐊 Alcantarillas (Rey de las Cloacas), 🏯 Palacio Imperial (Emperador Ratón), 🌲 Bosque encantado (Druida del Bosque), ☁️ Reino de las Nubes (Rey Trueno) y 🗝️ Castillo de Aventura (3 dragones, 3 llaves y la Copa Dorada)
 - 🐶 Pekín el pequinés (Ladrido imperial) y 🐰 Brinco el conejo (Salto): héroes desbloqueables
-- 🎁 Cofres, 15 legendarios con efectos únicos y 7 ranuras de equipo
+- 🎁 Cofres, 19 legendarios con efectos únicos y 7 ranuras de equipo
 - ⚔️ Espada cuadrada (evoluciona a Excálibur), 🧲 Imán y 🏆 Copa: homenaje a *Adventure* (Atari, 1979)
 - 💾 Sincroniza tu progreso entre dispositivos con un código de respaldo
 - 🐱 4 gatos desbloqueables, evoluciones de armas, música adaptativa

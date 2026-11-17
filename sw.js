@@ -1,6 +1,6 @@
 // Service worker de Bigotes y Mazmorras: funciona sin internet.
 // Sube VERSION cada vez que publiques cambios para forzar la actualización.
-const VERSION = 'bym-v9';
+const VERSION = 'bym-v10';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
