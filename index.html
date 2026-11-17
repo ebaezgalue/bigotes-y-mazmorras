@@ -33,6 +33,16 @@ canvas{display:block}
 #bossbar i{display:block;height:100%;background:linear-gradient(90deg,#7a3ad0,#c58bff)}
 #bossbar span{position:absolute;inset:0;font-size:11px;line-height:15px;text-align:center;font-weight:800;text-shadow:0 1px 2px #000}
 .ov{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(6,4,12,.82);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:10;padding:18px;text-align:center;overflow:auto}
+#menu{overflow-y:auto}
+.scr{display:none;flex-direction:column;align-items:center;width:100%;margin:auto 0}
+.scr.on{display:flex}
+.scr h2{margin:4px 0 10px;text-align:center}
+.btn.big{font-size:22px;padding:16px 44px;margin-top:10px}
+.sumline{font-size:13px;opacity:.85;text-align:center;margin:0 0 6px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:340px;margin-top:12px}
+.tile{background:#17121f;border:1px solid #3d3050;border-radius:14px;padding:14px 8px;color:#eee;font:inherit;font-weight:800;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 3px 0 #0e0a14}
+.tile span{font-size:28px}.tile small{font-size:11px;font-weight:500;opacity:.7}
+.tile:active{transform:translateY(2px);box-shadow:none}
 .ov.on{display:flex}
 .ov>:first-child{margin-top:auto}.ov>:last-child{margin-bottom:auto}
 #secret h2{font-size:28px;animation:hue 1.2s steps(6) infinite;font-family:monospace;letter-spacing:2px}
@@ -131,16 +141,38 @@ small{opacity:.75}
 </div>
 
 <div id="menu" class="ov on">
+<div class="scr on" id="s-main">
   <h1>Bigotes y Mazmorras</h1>
   <div class="sub">Una aventura gatuna en las mazmorras</div>
-  <button class="btn" id="play">▶ Jugar</button>
-  <div class="panel"><h3>🗺️ Elige el mapa</h3><div id="maps"></div><div id="mapd" style="font-size:12px;opacity:.8;margin-top:6px;text-align:center"></div></div>
+  <div id="sumline" class="sumline"></div>
+  <button class="btn big" id="go">▶ Jugar</button>
+  <button class="btn sec" id="quick">⚡ Jugar ya con la última elección</button>
+  <div class="tiles">
+   <button class="tile" data-go="tal"><span>🦴</span>Talentos<small id="bones2"></small></button>
+   <button class="tile" data-go="books"><span>📖</span>Libros<small>legendarios y bestiarios</small></button>
+   <button class="tile" data-go="sync"><span>💾</span>Sincronizar<small>entre dispositivos</small></button>
+   <button class="tile" data-go="opts"><span>⚙️</span>Opciones<small>sonido y música</small></button>
+  </div>
+</div>
+<div class="scr" id="s-cat"><h2>🐱 Paso 1 de 3: elige tu gato</h2>
   <div class="panel"><h3>🐱 Elige tu gato</h3><div id="cats"></div><div id="catd" style="font-size:12px;opacity:.8;margin-top:6px;text-align:center"></div></div>
+  <button class="btn" data-go="map">Siguiente ▶</button><button class="btn sec back" data-to="main">⬅ Volver</button>
+</div>
+<div class="scr" id="s-map"><h2>🗺️ Paso 2 de 3: elige el mapa</h2>
+  <div class="panel"><h3>🗺️ Elige el mapa</h3><div id="maps"></div><div id="mapd" style="font-size:12px;opacity:.8;margin-top:6px;text-align:center"></div></div>
+  <button class="btn" data-go="weapon">Siguiente ▶</button><button class="btn sec back" data-to="cat">⬅ Volver</button>
+</div>
+<div class="scr" id="s-weapon"><h2>🗡️ Paso 3 de 3: arma inicial</h2>
   <div class="panel"><h3>🗡️ Arma inicial</h3><div id="sw"></div><div id="swd" style="font-size:12px;opacity:.75;margin-top:6px;text-align:center"></div></div>
+  <button class="btn big" id="play">▶ ¡A jugar!</button><button class="btn sec back" data-to="map">⬅ Volver</button>
+</div>
+<div class="scr" id="s-tal"><h2>🦴 Talentos y equipo</h2>
   <div class="panel"><h3>🦴 Huesos de pescado: <span id="bones">0</span></h3><div id="tal"></div></div>
   <div class="panel"><h3>🎒 Equipo (se conserva entre partidas)</h3><div id="eq"></div></div>
+  <button class="btn sec back" data-to="main">⬅ Volver</button>
+</div>
+<div class="scr" id="s-books"><h2>📖 Libros</h2>
   <details class="panel"><summary>📜 Libro de legendarios</summary><div id="legb" style="margin-top:8px"></div></details>
-  <details class="panel"><summary>🎼 Sala de música (toca ▶ para escuchar)</summary><div id="mroom" style="margin-top:8px"></div><div style="font-size:11px;opacity:.65;margin-top:6px">Los temas sin 🎻/🎺 son arreglos sintetizados y simplificados de obras de dominio público.<br><b>Créditos de las grabaciones:</b> «La primavera» (Vivaldi): John Harrison, violín; Robert Turizziani, director; Wichita State University Chamber Players — licencia CC BY-SA. «Orfeo en los infiernos», obertura (Offenbach): grabación obtenida de Musopen.org. «El verano», mov. 2 (Vivaldi): John Harrison, violín; Wichita State University Chamber Players — CC BY-SA. «Danza macabra» (Saint-Saëns): Barbara Schubert, directora; University of Chicago Symphony Orchestra (vía IMSLP).</div></details>
   <details class="panel"><summary>🧬 Libro de evoluciones</summary><div id="evob" style="margin-top:8px"></div></details>
   <details class="panel"><summary>📖 Bestiario (toca para ver)</summary><div style="font-size:13px;line-height:1.7;margin-top:8px">
   🐀 <b>Rata</b> · desde el inicio<br>💨 <b>Rata veloz</b> · 0:24<br>🦇 <b>Rata murciélago</b> · 0:38 · vuela en zigzag y atraviesa a los demás<br>
@@ -148,14 +180,6 @@ small{opacity:.75}
   🎀 <b>Mamá rata</b> · 1:19 · al morir suelta 4 bebés<br>💣 <b>Rata kamikaze</b> · 1:34 · explota cerca de ti<br>🥷 <b>Ratón ninja</b> · 1:49 · se teletransporta a tu lado<br>
   🤢 <b>Rata de Cloaca Gigante</b> · 2:30 · minijefe que pare bebés<br>🌿 <b>Chamán</b> · 2:05 · cura a sus aliados, ¡mátalo primero!<br>
   🛡️ <b>Acorazado</b> · 2:45 · recibe la mitad de daño<br>🕹️ <b>Portal de 8 bits</b> · 1:15 y cada 2 min · camina hacia él para <b>entrar</b>: limpia la pantalla y empieza una zona de 20 s con premio<br>&nbsp;&nbsp;&nbsp;🦇 <b>Murciélago ladrón</b> · roba botín o experiencia y huye. ¡Atrápalo!<br>&nbsp;&nbsp;&nbsp;🐉 <b>Dragón de 8 bits</b> · desde el 2.º portal, persigue y embiste<br>🔘 <b>???</b> · algo pequeño se esconde en la oscuridad…<br>👑 <b>Rey Ratón</b> · 5:00</div></details>
-  <details class="panel" id="svp"><summary>💾 Sincronizar entre dispositivos</summary><div style="margin-top:8px;font-size:13px;line-height:1.5">
-   <b>1.</b> En el dispositivo que tiene tu progreso, toca <b>Copiar código</b>.<br><b>2.</b> En el otro, pégalo en el segundo cuadro y toca <b>Importar</b>.<br>
-   <span style="opacity:.75">Se traen huesos, talentos, equipo, gato y mapa. Récords, legendarios y desbloqueos se combinan con los que ya tengas.</span>
-   <textarea id="svOut" readonly rows="3" style="width:100%;margin-top:8px;background:#1a1424;color:#cfc3e8;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
-   <button class="btn sec" id="svCopy">📤 Copiar código</button> <button class="btn sec" id="svFile">💾 Guardar archivo</button>
-   <textarea id="svIn" rows="3" placeholder="Pega aquí el código del otro dispositivo (empieza con BYM)" style="width:100%;margin-top:8px;background:#1a1424;color:#fff;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
-   <button class="btn sec" id="svImp">📥 Importar código</button> <label class="btn sec" style="display:inline-block">📂 Abrir archivo<input type="file" id="svFileIn" accept=".txt,.bym,text/plain" style="display:none"></label>
-   <div id="svMsg" style="margin-top:6px;min-height:18px;font-weight:700"></div></div></details>
   <details class="panel"><summary>🗝️ Castillo de Aventura (misión)</summary><div style="font-size:13px;line-height:1.7;margin-top:8px">
   🟡 <b>Yorgle</b> · 1:00 · 🟢 <b>Grundle</b> · 2:10 · 🔴 <b>Rhindle</b> · 3:20: tres dragones de colores. Cada uno suelta una <b>llave</b> de su color.<br>
   🔓 Con las <b>3 llaves</b> aparece la <b>puerta del castillo</b>: una flecha te guía. Al cruzarla despierta al 🛡️ <b>Guardián del Castillo</b>.<br>
@@ -165,6 +189,21 @@ small{opacity:.75}
   🪳 <b>Cucaracha</b> · desde el inicio · enjambres veloces<br>🧀 <b>Ratón quesero</b> · 0:35 · rápido, da más experiencia<br>🧑‍🍳 <b>Ratón cocinero</b> · 1:00 · lanza cucharas de lejos<br>
   🍳 <b>Ratón de la sartén</b> · 2:30 · recibe la mitad de daño<br>🧀 <b>Ratón Quesero Gigante</b> · 2:30 · minijefe que pare bebés<br>👨‍🍳 <b>Chef Ratatouille</b> · 5:00 · lanza platos, embiste y llama a su brigada<br>
   ♾️ <b>Modo infinito</b> · al vencer al jefe la partida sigue: cada 4 min vuelve más fuerte, con cofres dorados de premio</div></details>
+  <button class="btn sec back" data-to="main">⬅ Volver</button>
+</div>
+<div class="scr" id="s-sync"><h2>💾 Sincronizar</h2>
+  <div class="panel" id="svp"><h3>💾 Sincronizar entre dispositivos</h3><div style="margin-top:8px;font-size:13px;line-height:1.5">
+   <b>1.</b> En el dispositivo que tiene tu progreso, toca <b>Copiar código</b>.<br><b>2.</b> En el otro, pégalo en el segundo cuadro y toca <b>Importar</b>.<br>
+   <span style="opacity:.75">Se traen huesos, talentos, equipo, gato y mapa. Récords, legendarios y desbloqueos se combinan con los que ya tengas.</span>
+   <textarea id="svOut" readonly rows="3" style="width:100%;margin-top:8px;background:#1a1424;color:#cfc3e8;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
+   <button class="btn sec" id="svCopy">📤 Copiar código</button> <button class="btn sec" id="svFile">💾 Guardar archivo</button>
+   <textarea id="svIn" rows="3" placeholder="Pega aquí el código del otro dispositivo (empieza con BYM)" style="width:100%;margin-top:8px;background:#1a1424;color:#fff;border:1px solid #4a3b60;border-radius:8px;padding:6px;font-size:11px;box-sizing:border-box"></textarea>
+   <button class="btn sec" id="svImp">📥 Importar código</button> <label class="btn sec" style="display:inline-block">📂 Abrir archivo<input type="file" id="svFileIn" accept=".txt,.bym,text/plain" style="display:none"></label>
+   <div id="svMsg" style="margin-top:6px;min-height:18px;font-weight:700"></div></div></div>
+  <button class="btn sec back" data-to="main">⬅ Volver</button>
+</div>
+<div class="scr" id="s-opts"><h2>⚙️ Opciones</h2>
+  <details class="panel"><summary>🎼 Sala de música (toca ▶ para escuchar)</summary><div id="mroom" style="margin-top:8px"></div><div style="font-size:11px;opacity:.65;margin-top:6px">Los temas sin 🎻/🎺 son arreglos sintetizados y simplificados de obras de dominio público.<br><b>Créditos de las grabaciones:</b> «La primavera» (Vivaldi): John Harrison, violín; Robert Turizziani, director; Wichita State University Chamber Players — licencia CC BY-SA. «Orfeo en los infiernos», obertura (Offenbach): grabación obtenida de Musopen.org. «El verano», mov. 2 (Vivaldi): John Harrison, violín; Wichita State University Chamber Players — CC BY-SA. «Danza macabra» (Saint-Saëns): Barbara Schubert, directora; University of Chicago Symphony Orchestra (vía IMSLP).</div></details>
   <button class="btn sec shk">📳 Temblor</button>
   <button class="btn sec" id="introbtn">🎬 Ver intro</button>
   <label class="btn sec" style="display:flex;align-items:center;gap:8px;justify-content:center">🎚️ Volumen música <input id="mvol" type="range" min="0" max="1" step="0.05" style="flex:1;max-width:150px"></label>
@@ -173,6 +212,8 @@ small{opacity:.75}
   <button class="btn sec mus">🎼 Música</button>
   <button class="btn sec" id="reset">Borrar progreso</button>
   <div class="help">Móvil: toca y arrastra en cualquier parte para moverte. PC: mantén el clic izquierdo para caminar hacia el cursor, o usa WASD/flechas. P para pausa. Ataques automáticos. Sobrevive y consigue botín. Minijefe a las 2:30 y jefe a las 5:00. ¡Al vencerlo empieza el modo infinito ♾️! Si se abre un portal de colores, ¡camina hacia él para entrar!</div>
+  <button class="btn sec back" data-to="main">⬅ Volver</button>
+</div>
 </div>
 
 <div id="lvl" class="ov"><h2>⭐ ¡Subiste de nivel!</h2><div id="cards"></div></div>
@@ -1140,7 +1181,7 @@ function renderLegBook(){const el=$('legb');if(!el)return;const seen=save.legs||
 function renderMaps(){const el=$('maps');if(!el)return;const cur=curMap();el.innerHTML=Object.keys(MAPS).map(k=>`<button data-m="${k}" class="${cur===k?'sel':''}">${MAPS[k].ic}<small>${MAPS[k].n}</small></button>`).join('');
   const rc=(save.inf||{})[cur];$('mapd').textContent=MAPS[cur].d+(rc?' · ♾️ Récord: '+fmt(rc):'');
   el.querySelectorAll('button').forEach(b=>b.onclick=()=>{save.map=b.dataset.m;persist();try{SND.click();}catch(e){}renderMaps();});}
-function renderMenu(){renderMaps();renderLegBook();renderCats();renderStartW();renderEvoBook();renderMusicRoom();$('bones').textContent=save.bones+(save.dot?'  ·  🔘 Secreto encontrado':'');
+function renderMenu(){const ck=curCat(),mk=curMap();$('sumline').textContent=CATS[ck].ic+' '+CATS[ck].n+'  ·  '+MAPS[mk].ic+' '+MAPS[mk].n+'  ·  '+WD[save.startW||'garra'].ic+'  ·  🦴 '+save.bones;$('bones2').textContent=save.bones+' 🦴';renderMaps();renderLegBook();renderCats();renderStartW();renderEvoBook();renderMusicRoom();$('bones').textContent=save.bones+(save.dot?'  ·  🔘 Secreto encontrado':'');
   const T=[['dmg','⚔️ Garras afiladas','+5% daño'],['hp','❤️ Siete vidas','+10 vida'],['mag','🧲 Bigotes finos','+10% imán']];
   $('tal').innerHTML=T.map(([k,n,d])=>{const l=save.talents[k],c=(l+1)*15;return `<div class="tal"><div><b>${n}</b> <span class="lv">${l}/5</span><br><small>${d} por nivel</small></div><button data-k="${k}" ${l>=5||save.bones<c?'disabled':''}>${l>=5?'MÁX':c+' 🦴'}</button></div>`;}).join('');
   $('tal').querySelectorAll('button').forEach(b=>b.onclick=()=>{const k=b.dataset.k,c=(save.talents[k]+1)*15;if(save.bones>=c&&save.talents[k]<5){save.bones-=c;save.talents[k]++;persist();renderMenu();}});
@@ -1173,7 +1214,7 @@ function svMsg(t,ok){const m=$('svMsg');if(!m)return;m.textContent=t;m.style.col
 async function svImport(code){try{const inc=await parseCode(code);save=Object.assign({bones:0,talents:{dmg:0,hp:0,mag:0},equip:{},shake:1,snd:true,mus:true,mmode:'dj'},mergeSave(inc));persist();checkUnlocks();renderMenu();svMsg('✅ Progreso importado: '+save.bones+' 🦴 · '+Object.values(save.equip).filter(Boolean).length+' objetos equipados · '+(save.legs||[]).length+' legendarios',true);$('svIn').value='';}
   catch(e){svMsg('❌ El código no es válido o está incompleto. Cópialo de nuevo completo.',false);}}
 (function svInit(){const cp=$('svCopy');if(!cp)return;
-  $('svp').addEventListener('toggle',()=>{if($('svp').open)svRefresh();});
+  try{svRefresh();}catch(e){}
   cp.onclick=()=>{const el=$('svOut');if(!el.value){svMsg('Espera un momento y vuelve a tocar',false);svRefresh();return;}el.focus();el.select();el.setSelectionRange(0,el.value.length);
     let ok=false;try{ok=document.execCommand('copy');}catch(e){}
     if(ok)svMsg('✅ Código copiado ('+el.value.length+' caracteres). Pégalo en el otro dispositivo.',true);
@@ -1184,8 +1225,14 @@ async function svImport(code){try{const inc=await parseCode(code);save=Object.as
     if(!arm){arm=true;$('svImp').textContent='¿Seguro? Toca otra vez';setTimeout(()=>{arm=false;$('svImp').textContent='📥 Importar código';},3500);return;}
     arm=false;$('svImp').textContent='📥 Importar código';svImport(v);};
   $('svFileIn').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('svIn').value=String(r.result||'').trim();svMsg('Archivo cargado: toca Importar código',true);};r.readAsText(f);e.target.value='';};})();
-function toMenu(){state='menu';G=null;$('hud').style.display='none';renderMenu();showOv('menu');}
-$('play').onclick=newGame;$('again').onclick=newGame;$('tomenu').onclick=toMenu;$('resume').onclick=togglePause;$('pz').onclick=togglePause;
+const BACKS={cat:'main',map:'cat',weapon:'map',tal:'main',books:'main',sync:'main',opts:'main'};let scr='main';
+function goScr(n,silent){scr=n;document.querySelectorAll('#menu .scr').forEach(e=>e.classList.toggle('on',e.id==='s-'+n));$('menu').scrollTop=0;if(n==='sync')try{svRefresh();}catch(e){}if(!silent&&n!=='main')try{history.pushState({s:n},'');}catch(e){}}
+document.querySelectorAll('#menu [data-go]').forEach(b=>b.onclick=()=>goScr(b.dataset.go));
+document.querySelectorAll('#menu .back').forEach(b=>b.onclick=()=>goScr(b.dataset.to,true));
+$('go').onclick=()=>goScr('cat');$('quick').onclick=()=>newGame();
+addEventListener('popstate',()=>{if(state==='menu'&&scr!=='main')goScr(BACKS[scr]||'main',true);});
+function toMenu(){state='menu';G=null;$('hud').style.display='none';renderMenu();goScr('main',true);showOv('menu');}
+$('play').onclick=()=>newGame();$('again').onclick=newGame;$('tomenu').onclick=toMenu;$('resume').onclick=togglePause;$('pz').onclick=togglePause;
 $('quit').onclick=()=>{state='play';gameOver();};
 let resetArm=false;$('reset').onclick=()=>{if(!resetArm){resetArm=true;$('reset').textContent='¿Seguro? Toca otra vez';setTimeout(()=>{resetArm=false;$('reset').textContent='Borrar progreso';},3000);return;}
   save={bones:0,talents:{dmg:0,hp:0,mag:0},equip:{},shake:save.shake,snd:save.snd,mus:save.mus,startW:save.startW,mmode:save.mmode,mvol:save.mvol,cat:'michi',unl:{}};persist();resetArm=false;$('reset').textContent='Borrar progreso';renderMenu();};
